@@ -1,4 +1,4 @@
 package org.example.websiteenglish.service.impl;
 
-public class UserServiceImpl {
+public class ApplicationServiceImpl {
 }

@@ -1,4 +1,4 @@
 package org.example.websiteenglish.dao.impl;
 
-public class UserDaoImpl {
+public class ApplicationDaoImpl {
 }

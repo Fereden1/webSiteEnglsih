@@ -1,4 +1,4 @@
 package org.example.websiteenglish.filter;
 
-public class EncodingFilter {
+public class AuthFilter {
 }

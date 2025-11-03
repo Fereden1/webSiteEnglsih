@@ -1,4 +1,4 @@
 package org.example.websiteenglish.entity;
 
-public class User {
+public class Application {
 }

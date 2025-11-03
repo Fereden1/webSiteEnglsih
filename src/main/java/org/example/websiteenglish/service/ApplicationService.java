@@ -1,4 +1,4 @@
 package org.example.websiteenglish.service;
 
-public class UserService {
+public class ApplicationService {
 }

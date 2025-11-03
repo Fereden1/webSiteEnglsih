@@ -3,21 +3,15 @@ package org.example.websiteenglish;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
-import java.util.Map;
-
 import org.example.websiteenglish.service.UserService;
 import org.example.websiteenglish.service.impl.UserServiceImpl;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
 
-@WebServlet(name = "Login", urlPatterns = "/login")
+@WebServlet(name = "login", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
     private final UserService userService = new UserServiceImpl();
@@ -25,7 +19,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         // Показываем форму логина
-        req.getRequestDispatcher("login.ftl").forward(req, resp);
+        req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -40,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
         if (email == null || email.isEmpty() || password == null) {
             req.setAttribute("error", "Введите email и пароль");
-            req.getRequestDispatcher("/login.ftl").forward(req, resp);
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
             return;
         }
 
@@ -50,8 +44,8 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("userEmail", email);
             session.setAttribute("userName", user.getName());
-            session.setAttribute("userId", user.getId()); // ✅ добавили, чтобы работал профиль
-
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("userRole", user.getRole());
             session.setMaxInactiveInterval(60 * 60);
 
             Cookie cookie = new Cookie("userEmail", email);
@@ -60,9 +54,10 @@ public class LoginServlet extends HttpServlet {
             resp.addCookie(cookie);
 
             resp.sendRedirect("index"); // ✅ раньше было "index.ftl"
+            return;
         } else {
             req.setAttribute("error", "Неверный email или пароль");
-            req.getRequestDispatcher("/login.ftl").forward(req, resp);
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
     }
 

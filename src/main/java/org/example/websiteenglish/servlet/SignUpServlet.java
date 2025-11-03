@@ -10,7 +10,7 @@ import org.example.websiteenglish.service.impl.UserServiceImpl;
 
 import java.io.IOException;
 
-@WebServlet("/sign_up")
+@WebServlet(name = "register", urlPatterns = "/register")
 public class SignUpServlet extends HttpServlet {
 
     private final UserService userService = new UserServiceImpl();
@@ -18,7 +18,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Показываем страницу регистрации
-        req.getRequestDispatcher("/sign_up.ftl").forward(req, resp);
+        req.getRequestDispatcher("/register.jsp").forward(req, resp);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
         // Проверяем, существует ли пользователь с таким email
         if (userService.emailExists(email)) {
             req.setAttribute("error", "Пользователь с таким email уже существует");
-            req.getRequestDispatcher("/sign_up.ftl").forward(req, resp);
+            req.getRequestDispatcher("/register.jsp").forward(req, resp);
         } else {
             userService.signUp(name, email, password);
             // ✅ после успешной регистрации — на логин
